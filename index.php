@@ -35,7 +35,7 @@
     	<p>Logged in as: <strong><?php echo $_SESSION['username']; ?></strong></p>
     	<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
 	<?php endif ?>
-	
+	<!--test kommentar för github-->
 	<div class= 'game'>
   <div id = 'home'>
     <canvas id='mycanvas' width='500' height='500'><!--planen-->
