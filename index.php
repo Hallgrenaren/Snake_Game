@@ -30,21 +30,31 @@
 </div>
 <div class="content">
 
-    <!--inloggad user information -->
-    <?php  if (isset($_SESSION['username'])) : ?>
-    	<p>Logged in as: <strong><?php echo $_SESSION['username']; ?></strong></p>
-    	<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
+  <!--inloggad user information -->
+  <?php  if (isset($_SESSION['username'])) : ?>
+    <p>Logged in as: <strong><?php echo $_SESSION['username']; ?></strong></p>
+    <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
 	<?php endif ?>
 	<!--test kommentar för github-->
-	<div class= 'game'>
-  <div id = 'home'>
-    <canvas id='mycanvas' width='500' height='500'><!--planen-->
-    </canvas>
-    </div>
-    <p>Press start and eat all the lemons!</p>
-    <button id='btn'>START</button><!--för att kunna hänvisa till denna via javascript så att spelet börjar i samband med knapptryckningen-->
-  </div>
-    <script src = "Snake.js"> </script><!--anropar javascripten, där allt händer-->
+  <table>
+    <tr>
+      <td>
+        <div class= 'game'>
+          <div id = 'home'>
+            <canvas id='mycanvas' width='500' height='500'><!--planen-->
+            </canvas>
+          </div>
+          <p>Press start and eat all the lemons!</p>
+          <button id='btn'>START</button><!--för att kunna hänvisa till denna via javascript så att spelet börjar i samband med knapptryckningen-->
+        </div>
+        <script src = "Snake.js"> </script><!--anropar javascripten, där allt händer-->
+      </td>
+      <td>
+        
+
+      </td>
+    </tr>
+  </table>
 </div>
 		
 </body>
