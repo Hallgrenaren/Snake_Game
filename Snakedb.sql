@@ -9,6 +9,6 @@ CREATE TABLE `highscores` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userid` int(11) NOT NULL,
   `score` int(11),
-  `when` datetime NOT NULL,
+  `score_time` datetime NOT NULL,
   FOREIGN KEY (userid) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

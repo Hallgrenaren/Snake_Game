@@ -104,16 +104,33 @@
              } else if (direction == 'down') {
                  snakeY++;
              }
+
              //kolla om ormens "nya huvud" kolliderar
-           if (snakeX == -1 || snakeX == w / squareSize || snakeY == -1 || snakeY == h / squareSize || checkCollision(snakeX, snakeY, snake)) {
-               
-               alert ("din score blev: " + score);
-               //gör det möjligt att starta igen
-               btn.removeAttribute('disable', true)
-               //gör rent på spelplan
-               ctx.clearRect(0, 0, w, h);
-               gameloop = clearInterval(gameloop);
-               return;
+             if (snakeX == -1 || snakeX == w / squareSize || snakeY == -1 || snakeY == h / squareSize || checkCollision(snakeX, snakeY, snake)) {
+                var wasRecord = false
+                var sessionId = '<?php echo session_id(); ?>';
+                $.ajax({
+                    type: "POST",
+                    url: 'score_handler.php',
+                    dataType: 'json',
+                    data: {id: sessionId, functionname: 'add_score', arguments: [score]},
+                
+                    success: function (obj, textstatus) {
+                        if( !('error' in obj) ) {
+                            console.log(obj.result);
+                            wasRecord = obj.result;
+                            if(wasRecord) {
+                                alert ("Grattis. Nytt personligt rekord. Din score blev: " + score);
+                            } else {
+                                alert ("Din score blev: " + score);
+                            }
+                            window.location.reload(true);                    
+                        }
+                        else {
+                            console.log(obj.error);
+                        }
+                    }
+                });
            } 
              //för att ormen ska bli längre av att äta
              if(snakeX == food.x && snakeY == food.y){
