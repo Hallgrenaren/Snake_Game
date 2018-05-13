@@ -1,3 +1,5 @@
+--snake_game Databasens tabeller
+
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(100) NOT NULL,

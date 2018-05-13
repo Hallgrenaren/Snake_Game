@@ -8,6 +8,7 @@
  var snake;
  var squareSize = 10;
  var food;
+ var overAndOut = false;
    
    //design pattern men hjälp av modul som innehåller funktioner, som inte kolliderar med andra moduler. Anonyma funktioner. Ungefär som en klass i java.
    var drawModule = (function (){
@@ -107,31 +108,40 @@
 
              //kolla om ormens "nya huvud" kolliderar
              if (snakeX == -1 || snakeX == w / squareSize || snakeY == -1 || snakeY == h / squareSize || checkCollision(snakeX, snakeY, snake)) {
+                 //Game over, terminera timern som anropar paint funktionen
+                clearInterval(gameloop)
                 var wasRecord = false
-                var sessionId = '<?php echo session_id(); ?>';
+                //anropar servern med resultatet
                 $.ajax({
                     type: "POST",
                     url: 'score_handler.php',
                     dataType: 'json',
-                    data: {id: sessionId, functionname: 'add_score', arguments: [score]},
+                    data: {functionname: 'add_score', arguments: [score]},
                 
                     success: function (obj, textstatus) {
                         if( !('error' in obj) ) {
+                            //Hämta svaret från servern
                             console.log(obj.result);
                             wasRecord = obj.result;
+                            //lägg ut rätt alert beroende på om det var nytt personligt record eller inte
                             if(wasRecord) {
-                                alert ("Grattis. Nytt personligt rekord. Din score blev: " + score);
+                                alert ("Congratulations! Your new personal record is: " + score);
                             } else {
-                                alert ("Din score blev: " + score);
+                                alert ("Your score: " + score);
                             }
+                            //Se till att sidan laddas om med dem nya resultaten, även det som möjliggör att man kan spela igen
                             window.location.reload(true);                    
                         }
                         else {
                             console.log(obj.error);
                         }
-                    }
+                    },
+                    error: function (jqXHR, status, err) {
+                        alert("An error occured. Status: " + status + "Error: " + err);
+                    },                    
                 });
-           } 
+                return
+             } 
              //för att ormen ska bli längre av att äta
              if(snakeX == food.x && snakeY == food.y){
                  //ormen åt, skapa nytt huvud, bli längre

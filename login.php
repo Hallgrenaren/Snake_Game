@@ -1,3 +1,5 @@
+
+<!-- Layout för inloggning-->
 <?php include('server.php') ?>
 <!DOCTYPE html>
 <html>
